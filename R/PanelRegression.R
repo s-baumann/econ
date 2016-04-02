@@ -4,6 +4,7 @@
 #' @param data The data.frame for the regression. As subsetting is not currently supported you should drop observations you do not want to include from the data.frame.
 #' @param errors The type of standard errors. The options are c("homoskedastic", "robust", "white", "HC0" , "HC2" , "HC3" , "HC4", "HC4m", "HC5") where the last ones are as described by \code{\link{sandwich::vcovHC}}
 #' @param cluster The clustering variable. If input errors (above) are ignored.
+#' @param idtime The group id variable name and time variable entered as a vector. ie. c("individual", "time"). If omitted first two variables in data.frame are used for this.
 #' @param quietly Output a summary? FALSE by default.
 #'
 #' @return An econreg object which contains a list:
@@ -19,7 +20,8 @@
 #' x = sin(1:100)
 #' y = 1 + x + c(rnorm(50), rnorm(50, sd = 3))
 #' z = as.factor(c(rep("A", 50), rep("B", 50) ))
-#' dd = data.frame(x = x, y = y, z = z)
+#' t = c(1:50, 1:50)
+#' dd = data.frame(z = z, t = t, x = x, y = y)
 #' form = "y ~ x"
 #' rm(x,y,z)
 
@@ -27,9 +29,10 @@
 #' M2 = reg(form = form, data = dd, errors = "homoskedastic")
 #' M3 = reg(form = form, data = dd, errors = "robust")
 
-xtreg = function(form, data, errors = c("homoskedastic", "robust", "white", "HC0" , "HC2" , "HC3" , "HC4", "HC4m", "HC5"), cluster = FALSE, quietly = FALSE){
+xtreg = function(form, data, errors = c("homoskedastic", "robust", "white", "HC0" , "HC2" , "HC3" , "HC4", "HC4m", "HC5"), cluster = FALSE, quietly = FALSE, idtime = NULL){
   errors = errors[1]
-  Modl = do.call("lm", list(formula = form, data = substitute(data)))
+  if (is.null(idtime)){data = plm::pdata.frame(data)} else {data = plm::pdata.frame(data, index = idtime)}
+  Modl = do.call(plm::plm, list(formula = form, data = substitute(data)))
 
   if((class(cluster[[1]]) == "character") & length(cluster) == 1){
     cluster = data[,cluster]

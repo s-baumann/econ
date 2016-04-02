@@ -1,0 +1,17 @@
+---
+title: "econ: A wrapper package to make econometrics on R as easy as in Stata"
+author: "Stuart Baumann & Margaryta Klymak"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{econ}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+R now offers support for almost every econometrics operation that can be done. Despite this however Stata holds a preeminant position in the academic econometricians.
+
+The philosophy for the design of this package included the following principles. This package should be offer support for most of the econometrics procedures that are regularly undertaken by econometricians. This will be done by wrapping various packages that are available on CRAN. The syntax this package uses should be consistent between all supported functions. Where possible function names should be consistent with Stata. 
+
+As Stata is currently preeminent in econometrics, this package should deliver the same output as Stata in all cases. In addition this package should be as flexible and offer as many different options as Stata.
+

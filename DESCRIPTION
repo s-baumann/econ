@@ -1,0 +1,18 @@
+Package: econ
+Type: Package
+Title: Econometrics
+Version: 0.1
+Date: 2016-03-23
+Author: Stuart Baumann [aut, cre], Margaryta Klymak[ctb]
+Maintainer: Stuart Baumann <Stuart.Baumann@ed.ac.uk>
+Description: There exist many econometrics package on CRAN. These
+	packages lack a consistent syntax and furthermore offer too
+	many options for many users. The purpose of this package is 
+	to provide simple and consistent access to most of the 
+	functions that are regularly used in econometrics.
+License:  MIT + file LICENSE
+LazyData: TRUE
+Imports: sandwich, stargazer, lmtest, aod
+Suggests: knitr
+VignetteBuilder: knitr
+RoxygenNote: 5.0.1
